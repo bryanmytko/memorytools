@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
+form {
+  width: 300px;
+}
+
+div#display {
+  width: 400px;
+  font-size: 2em;
+  padding: 20px 0;
+}
