@@ -1,5 +1,54 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= 'Numerical Groups'
+  form(id='numberRangeForm')
+    div(id='slider')
+    p min:
+      label(id='min')
+    p max:
+      label(id='max')
+    p
+      label length:
+      input(name='len', value=10)
+    button(id='generate') generate
+  div(id='display')
+  ul
+    li add "memorized" button
+    li add "reveal" button
+  script.
+    let form = document.getElementById('numberRangeForm')
+    let slider = document.getElementById('slider')
+    let min = document.getElementById('min')
+    let max = document.getElementById('max')
+    noUiSlider.create(slider, {
+      start: [20, 80],
+      connect: true,
+      range: {
+        'min': [0],
+        'max': [100]
+      },
+      step: 1
+    })
+    slider.noUiSlider.on('update', function (values, handle) {
+      min.innerHTML = parseInt(values[0])
+      max.innerHTML = parseInt(values[1])
+    })
+    form.addEventListener('submit', function(e) {
+      e.preventDefault()
+      const display = document.getElementById('display')
+      const ele = e.target.elements
+      const len = ele.len.value
+      const maxVal = parseInt(max.innerHTML)
+      const minVal = parseInt(min.innerHTML)
+      let randoms = [];
+
+      for(i = 0; i < len; i++) {
+        randoms.push(Math.floor(Math.random() * ((maxVal + 1) - minVal) + minVal).toString().padStart(2,"0"))
+      }
+
+      display.innerHTML = randoms.join('')
+    })
+
+
+
