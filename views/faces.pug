@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= 'Faces & Names'
+  div(id='faces-container')
+  style.
+    #faces-container {
+      margin: 0 auto;
+      width: 60%;
+    }
+    #faces-container img {
+      width: 100px;
+      height: 100px;
+    }
+  script.
+    const imgs = JSON.parse('!{JSON.stringify(data.faces)}');
+    imgs.forEach(img => {
+      const i = document.createElement('img');
+      const d = document.getElementById('faces-container');
+      i.src = img;
+      d.appendChild(i);
+    });
+  
