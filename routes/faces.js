@@ -1,8 +1,7 @@
 require('dotenv').config();
 
 const AWS = require('aws-sdk');
-const fs = require('fs');
-const path = require('path');
+const faker = require('faker');
 
 const BUCKET_NAME = "peoplethatdontexist";
 const FACES_LEN = 20;
@@ -35,9 +34,9 @@ router.get('/', function(req, res, next) {
 
     for(i = 0; i < FACES_LEN; i++){
       const ran = Math.floor(Math.random() * images.length);
-      const member = images[ran];
-      randomImages.push(member);
-      images.pop(member);
+      const img = images[ran];
+      randomImages.push({ img, name: faker.name.findName() });
+      images.pop(img); // avoid duplicates by removing from the array
     }
 
     res.render('faces', { data: { faces: randomImages }});

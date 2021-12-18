@@ -7,17 +7,30 @@ block content
     #faces-container {
       margin: 0 auto;
       width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    #faces-container .face-unit {
+      width: 100px;
     }
     #faces-container img {
-      width: 100px;
-      height: 100px;
+      width: 100%;
     }
   script.
-    const imgs = JSON.parse('!{JSON.stringify(data.faces)}');
-    imgs.forEach(img => {
-      const i = document.createElement('img');
-      const d = document.getElementById('faces-container');
-      i.src = img;
-      d.appendChild(i);
+    const faces = JSON.parse('!{JSON.stringify(data.faces)}');
+    faces.forEach(face => {
+      const face_unit = document.createElement('div');
+      const img = document.createElement('img');
+      const p = document.createElement('p');
+      const container = document.getElementById('faces-container');
+
+      img.src = face.img;
+      p.innerHTML = face.name;
+      face_unit.classList.add('face-unit');
+
+      container.appendChild(face_unit);
+      face_unit.appendChild(img);
+      face_unit.appendChild(p);
     });
   
